@@ -1,0 +1,25 @@
+{
+  "name": "flyover-node-webgl",
+  "version": "0.0.0",
+  "author": "Flyover Games",
+  "homepage": "http://flyovergames.com",
+  "description": "Node WebGL Package",
+  "contributors": [
+    "Isaac Burns <isaacburns@gmail.com>"
+  ],
+  "main": "node-webgl.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flyover/node-webgl.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/flyover/node-webgl/issues"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "WebGL"
+  ]
+}
