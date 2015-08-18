@@ -680,6 +680,10 @@ WebGLRenderingContextBase.prototype.VERTEX_ATTRIB_ARRAY_NORMALIZED = 0x886A;
 WebGLRenderingContextBase.prototype.VERTEX_ATTRIB_ARRAY_POINTER  = 0x8645;
 WebGLRenderingContextBase.prototype.VERTEX_ATTRIB_ARRAY_BUFFER_BINDING = 0x889F;
 
+// Read Format
+WebGLRenderingContextBase.prototype.IMPLEMENTATION_COLOR_READ_TYPE   = 0x8B9A;
+WebGLRenderingContextBase.prototype.IMPLEMENTATION_COLOR_READ_FORMAT = 0x8B9B;
+
 // Shader Source
 WebGLRenderingContextBase.prototype.COMPILE_STATUS  			 = 0x8B81;
 
@@ -1630,6 +1634,8 @@ WebGLRenderingContextBase.prototype.getParameter = function (pname)
 	case this.FRONT_FACE:							ret = _getParameter_i();  	break;	// GLenum
 	case this.GENERATE_MIPMAP_HINT:					ret = _getParameter_i();  	break;	// GLenum
 	case this.GREEN_BITS:							ret = _getParameter_i();  	break;	// GLint
+	case this.IMPLEMENTATION_COLOR_READ_TYPE:		ret = _getParameter_i();	break;	// GLenum
+	case this.IMPLEMENTATION_COLOR_READ_FORMAT:		ret = _getParameter_i();	break;	// GLenum
 	case this.LINE_WIDTH:							ret = _getParameter_f();	break;	// GLfloat
 	case this.MAX_COMBINED_TEXTURE_IMAGE_UNITS:		ret = _getParameter_i();  	break;	// GLint
 	case this.MAX_CUBE_MAP_TEXTURE_SIZE:			ret = _getParameter_i();  	break;	// GLint
@@ -2609,13 +2615,14 @@ WebGLRenderingContextBase.prototype.uniform1f = function (location, x)
 // void uniform1fv(WebGLUniformLocation? location, sequence<GLfloat> v);
 WebGLRenderingContextBase.prototype.uniform1fv = function (location, v)
 {
+	var count = v.length;
 	if (v instanceof Float32Array)
 	{
-		this.gl.glUniform1fv(location && location.gl_location, 1, v);
+		this.gl.glUniform1fv(location && location.gl_location, count, v);
 	}
 	else if (v instanceof Array)
 	{
-		this.gl.glUniform1fv(location && location.gl_location, 1, new Float32Array(v));
+		this.gl.glUniform1fv(location && location.gl_location, count, new Float32Array(v));
 	}
 }
 
@@ -2629,13 +2636,14 @@ WebGLRenderingContextBase.prototype.uniform1i = function (location, x)
 // void uniform1iv(WebGLUniformLocation? location, sequence<long> v);
 WebGLRenderingContextBase.prototype.uniform1iv = function (location, v)
 {
+	var count = v.length;
 	if (v instanceof Int32Array)
 	{
-		this.gl.glUniform1iv(location && location.gl_location, 1, v);
+		this.gl.glUniform1iv(location && location.gl_location, count, v);
 	}
 	else if (v instanceof Array)
 	{
-		this.gl.glUniform1iv(location && location.gl_location, 1, new Int32Array(v));
+		this.gl.glUniform1iv(location && location.gl_location, count, new Int32Array(v));
 	}
 }
 
@@ -2649,13 +2657,15 @@ WebGLRenderingContextBase.prototype.uniform2f = function (location, x, y)
 // void uniform2fv(WebGLUniformLocation? location, sequence<GLfloat> v);
 WebGLRenderingContextBase.prototype.uniform2fv = function (location, v)
 {
+	//assert((value.length % 2) === 0);
+	var count = v.length / 2;
 	if (v instanceof Float32Array)
 	{
-		this.gl.glUniform2fv(location && location.gl_location, 1, v);
+		this.gl.glUniform2fv(location && location.gl_location, count, v);
 	}
 	else if (v instanceof Array)
 	{
-		this.gl.glUniform2fv(location && location.gl_location, 1, new Float32Array(v));
+		this.gl.glUniform2fv(location && location.gl_location, count, new Float32Array(v));
 	}
 }
 
@@ -2669,13 +2679,15 @@ WebGLRenderingContextBase.prototype.uniform2i = function (location, x, y)
 // void uniform2iv(WebGLUniformLocation? location, sequence<long> v);
 WebGLRenderingContextBase.prototype.uniform2iv = function (location, v)
 {
+	//assert((value.length % 2) === 0);
+	var count = v.length / 2;
 	if (v instanceof Int32Array)
 	{
-		this.gl.glUniform2iv(location && location.gl_location, 1, v);
+		this.gl.glUniform2iv(location && location.gl_location, count, v);
 	}
 	else if (v instanceof Array)
 	{
-		this.gl.glUniform2iv(location && location.gl_location, 1, new Int32Array(v));
+		this.gl.glUniform2iv(location && location.gl_location, count, new Int32Array(v));
 	}
 }
 
@@ -2689,13 +2701,15 @@ WebGLRenderingContextBase.prototype.uniform3f = function (location, x, y, z)
 // void uniform3fv(WebGLUniformLocation? location, sequence<GLfloat> v);
 WebGLRenderingContextBase.prototype.uniform3fv = function (location, v)
 {
+	//assert((value.length % 3) === 0);
+	var count = v.length / 3;
 	if (v instanceof Float32Array)
 	{
-		this.gl.glUniform3fv(location && location.gl_location, 1, v);
+		this.gl.glUniform3fv(location && location.gl_location, count, v);
 	}
 	else if (v instanceof Array)
 	{
-		this.gl.glUniform3fv(location && location.gl_location, 1, new Float32Array(v));
+		this.gl.glUniform3fv(location && location.gl_location, count, new Float32Array(v));
 	}
 }
 
@@ -2709,13 +2723,15 @@ WebGLRenderingContextBase.prototype.uniform3i = function (location, x, y, z)
 // void uniform3iv(WebGLUniformLocation? location, sequence<long> v);
 WebGLRenderingContextBase.prototype.uniform3iv = function (location, v)
 {
+	//assert((value.length % 3) === 0);
+	var count = v.length / 3;
 	if (v instanceof Int32Array)
 	{
-		this.gl.glUniform3iv(location && location.gl_location, 1, v);
+		this.gl.glUniform3iv(location && location.gl_location, count, v);
 	}
 	else if (v instanceof Array)
 	{
-		this.gl.glUniform3iv(location && location.gl_location, 1, new Int32Array(v));
+		this.gl.glUniform3iv(location && location.gl_location, count, new Int32Array(v));
 	}
 }
 
@@ -2729,13 +2745,15 @@ WebGLRenderingContextBase.prototype.uniform4f = function (location, x, y, z, w)
 // void uniform4fv(WebGLUniformLocation? location, sequence<GLfloat> v);
 WebGLRenderingContextBase.prototype.uniform4fv = function (location, v)
 {
+	//assert((value.length % 4) === 0);
+	var count = v.length / 4;
 	if (v instanceof Float32Array)
 	{
-		this.gl.glUniform4fv(location && location.gl_location, 1, v);
+		this.gl.glUniform4fv(location && location.gl_location, count, v);
 	}
 	else if (v instanceof Array)
 	{
-		this.gl.glUniform4fv(location && location.gl_location, 1, new Float32Array(v));
+		this.gl.glUniform4fv(location && location.gl_location, count, new Float32Array(v));
 	}
 }
 
@@ -2749,13 +2767,15 @@ WebGLRenderingContextBase.prototype.uniform4i = function (location, x, y, z, w)
 // void uniform4iv(WebGLUniformLocation? location, sequence<long> v);
 WebGLRenderingContextBase.prototype.uniform4iv = function (location, v)
 {
+	//assert((value.length % 4) === 0);
+	var count = v.length / 4;
 	if (v instanceof Int32Array)
 	{
-		this.gl.glUniform4iv(location && location.gl_location, 1, v);
+		this.gl.glUniform4iv(location && location.gl_location, count, v);
 	}
 	else if (v instanceof Array)
 	{
-		this.gl.glUniform4iv(location && location.gl_location, 1, new Int32Array(v));
+		this.gl.glUniform4iv(location && location.gl_location, count, new Int32Array(v));
 	}
 }
 
@@ -2763,15 +2783,15 @@ WebGLRenderingContextBase.prototype.uniform4iv = function (location, v)
 // void uniformMatrix2fv(WebGLUniformLocation? location, GLboolean transpose, sequence<GLfloat> value);
 WebGLRenderingContextBase.prototype.uniformMatrix2fv = function (location, transpose, value)
 {
+	//assert((value.length % 4) === 0);
+	var count = value.length / 4;
 	if (value instanceof Float32Array)
 	{
-		//assert(value.length === 4);
-		this.gl.glUniformMatrix2fv(location && location.gl_location, 1, transpose, value);
+		this.gl.glUniformMatrix2fv(location && location.gl_location, count, transpose, value);
 	}
 	else if (value instanceof Array)
 	{
-		//assert(value.length === 4);
-		this.gl.glUniformMatrix2fv(location && location.gl_location, 1, transpose, new Float32Array(value));
+		this.gl.glUniformMatrix2fv(location && location.gl_location, count, transpose, new Float32Array(value));
 	}
 }
 
@@ -2779,15 +2799,15 @@ WebGLRenderingContextBase.prototype.uniformMatrix2fv = function (location, trans
 // void uniformMatrix3fv(WebGLUniformLocation? location, GLboolean transpose, sequence<GLfloat> value);
 WebGLRenderingContextBase.prototype.uniformMatrix3fv = function (location, transpose, value)
 {
+	//assert((value.length % 9) === 0);
+	var count = value.length / 9;
 	if (value instanceof Float32Array)
 	{
-		//assert(value.length === 9);
-		this.gl.glUniformMatrix3fv(location && location.gl_location, 1, transpose, value);
+		this.gl.glUniformMatrix3fv(location && location.gl_location, count, transpose, value);
 	}
 	else if (value instanceof Array)
 	{
-		//assert(value.length === 9);
-		this.gl.glUniformMatrix3fv(location && location.gl_location, 1, transpose, new Float32Array(value));
+		this.gl.glUniformMatrix3fv(location && location.gl_location, count, transpose, new Float32Array(value));
 	}
 }
 
@@ -2795,15 +2815,15 @@ WebGLRenderingContextBase.prototype.uniformMatrix3fv = function (location, trans
 // void uniformMatrix4fv(WebGLUniformLocation? location, GLboolean transpose, sequence<GLfloat> value);
 WebGLRenderingContextBase.prototype.uniformMatrix4fv = function (location, transpose, value)
 {
+	//assert((value.length % 16) === 0);
+	var count = value.length / 16;
 	if (value instanceof Float32Array)
 	{
-		//assert(value.length === 16);
-		this.gl.glUniformMatrix4fv(location && location.gl_location, 1, transpose, value);
+		this.gl.glUniformMatrix4fv(location && location.gl_location, count, transpose, value);
 	}
 	else if (value instanceof Array)
 	{
-		//assert(value.length === 16);
-		this.gl.glUniformMatrix4fv(location && location.gl_location, 1, transpose, new Float32Array(value));
+		this.gl.glUniformMatrix4fv(location && location.gl_location, count, transpose, new Float32Array(value));
 	}
 }
 
