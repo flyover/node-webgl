@@ -1072,9 +1072,9 @@ WebGLRenderingContextBase.prototype.bufferData = function (target, data, usage)
 {
 	if (typeof(data) === 'number')
 	{
-		this.gl.glBufferData(target, data, new ArrayBuffer(data), usage);
+		this.gl.glBufferData(target, data, new Uint8Array(data), usage);
 	}
-	else if (data.buffer instanceof ArrayBuffer)
+	else if (ArrayBuffer.isView(data))
 	{
 		this.gl.glBufferData(target, data.byteLength, data, usage);
 	}
@@ -1092,7 +1092,7 @@ WebGLRenderingContextBase.prototype.bufferData = function (target, data, usage)
 // void bufferSubData(GLenum target, GLintptr offset, ArrayBuffer? data);
 WebGLRenderingContextBase.prototype.bufferSubData = function (target, offset, data)
 {
-	if (data.buffer instanceof ArrayBuffer)
+	if (ArrayBuffer.isView(data))
 	{
 		this.gl.glBufferSubData(target, offset, data.byteLength, data);
 	}
